@@ -13,12 +13,13 @@ pub const ElfSymbol = types.ElfSymbol;
 pub const ElfDynamic = types.ElfDynamic;
 pub const ElfRelocation = types.ElfRelocation;
 
+pub const ProgFlags = types.ProgFlags;
+
 pub const Machine = constants.Machine;
 pub const Type = constants.Type;
 pub const OSABI = constants.OSABI;
 
 pub const ProgType = constants.ProgType;
-pub const ProgFlag = constants.ProgFlag;
 
 pub const SectionType = constants.SectionType;
 pub const SectionFlag = constants.SectionFlag;
