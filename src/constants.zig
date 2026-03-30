@@ -31,16 +31,6 @@ pub const ProgType = enum(u32) {
     PT_UNKNOWN = 0xBADFACED,
 };
 
-pub const ProgFlag = enum(u32) {
-    PF_X = elf.PF_X,
-    PF_W = elf.PF_W,
-    PF_R = elf.PF_R,
-    PF_MASKOS = elf.PF_MASKOS,
-    PF_MASKPROC = elf.PF_MASKPROC,
-
-    PF_UNKNOWN = 0xBADFACED,
-};
-
 pub const SectionType = enum(u32) {
     SHT_NULL = elf.SHT_NULL,
     SHT_PROGBITS = elf.SHT_PROGBITS,

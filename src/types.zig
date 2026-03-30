@@ -122,12 +122,33 @@ pub const ElfHeader = union(enum) {
     }
 };
 
+pub const ProgFlags = struct {
+    value: u32,
+
+    const Self = @This();
+
+    pub fn init(value: u32) Self {
+        return .{ .value = value };
+    }
+
+    pub fn execute(self: Self) bool {
+        return (self.value & elf.PF_X) != 0;
+    }
+
+    pub fn write(self: Self) bool {
+        return (self.value & elf.PF_W) != 0;
+    }
+
+    pub fn read(self: Self) bool {
+        return (self.value & elf.PF_R) != 0;
+    }
+};
+
 pub const ElfProgram = union(enum) {
     elf32: elf.Elf32_Phdr,
     elf64: elf.Elf64_Phdr,
 
     const ProgType = constants.ProgType;
-    const ProgFlag = constants.ProgFlag;
 
     const Self = @This();
 
@@ -137,9 +158,9 @@ pub const ElfProgram = union(enum) {
         };
     }
 
-    pub fn getFlags(self: Self) ProgFlag {
+    pub fn getFlags(self: Self) ProgFlags {
         return switch (self) {
-            inline else => |p| meta.intToEnum(ProgFlag, p.p_flags) catch ProgFlag.PF_UNKNOWN,
+            inline else => |p| ProgFlags.init(p.p_flags),
         };
     }
 
