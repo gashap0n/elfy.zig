@@ -26,6 +26,7 @@ const ElfError = error{
     InvalidElfEndian,
     InvalidClass,
     NoSectionStringTable,
+    EmptyProgram,
     EmptySection,
     InvalidSectionIndex,
     SectionNotFound,
@@ -158,6 +159,17 @@ pub fn getIterator(self: *Elf, comptime T: type) ElfError!Iterator(T) {
             break :blk try SectionIterator(T).init(self, args);
         },
     };
+}
+
+// Returns an immutable program/segment data buffer
+pub fn getProgramData(self: *Elf, program: ElfProgram) ElfError![]const u8 {
+    const offset = program.getOffset();
+    const size = program.getFileSize();
+
+    if (size == 0) return ElfError.EmptyProgram;
+    assert(offset + size <= self.reader.buffer.len);
+
+    return self.reader.buffer[offset..][0..size];
 }
 
 // Returns the section name using shstrtab
