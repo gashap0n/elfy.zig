@@ -9,6 +9,8 @@ const posix = std.posix;
 const fs = std.fs;
 const mem = std.mem;
 
+const winapi = std.builtin.CallingConvention.winapi;
+
 const Endian = std.builtin.Endian;
 
 pub const MapMode = enum(u2) {
@@ -118,7 +120,7 @@ extern "kernel32" fn CreateFileMappingA(
     dwMaximumSizeHigh: win.DWORD,
     dwMaximumSizeLow: win.DWORD,
     lpName: ?win.LPCSTR,
-) callconv(win.WINAPI) ?win.HANDLE;
+) callconv(winapi) ?win.HANDLE;
 
 extern "kernel32" fn MapViewOfFile(
     hFileMappingObject: win.HANDLE,
@@ -126,7 +128,7 @@ extern "kernel32" fn MapViewOfFile(
     dwFileOffsetHigh: win.DWORD,
     dwFileOffsetLow: win.DWORD,
     dwNumberOfBytesToMap: win.SIZE_T,
-) callconv(win.WINAPI) ?win.LPVOID;
+) callconv(winapi) ?win.LPVOID;
 
-extern "kernel32" fn UnmapViewOfFile(lpBaseAddress: win.LPCVOID) callconv(win.WINAPI) bool;
-extern "kernel32" fn FlushViewOfFile(lpBaseAddress: win.LPCVOID, dwNumberOfBytesToFlush: win.SIZE_T) callconv(win.WINAPI) bool;
+extern "kernel32" fn UnmapViewOfFile(lpBaseAddress: win.LPCVOID) callconv(winapi) bool;
+extern "kernel32" fn FlushViewOfFile(lpBaseAddress: win.LPCVOID, dwNumberOfBytesToFlush: win.SIZE_T) callconv(winapi) bool;
