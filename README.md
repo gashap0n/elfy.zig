@@ -7,7 +7,7 @@
 First, you must fetch the `elfy` library for your project:
 
 ```bash
-zig fetch --save git+https://github.com/gashap0n/zig.elfy#master
+zig fetch --save git+https://github.com/gashap0n/elfy.zig#master
 ```
 
 Then, after `b.addExecutable(...)`, add the following code to your `build.zig`:
