@@ -1,0 +1,26 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    name: Build and Test on ${{ matrix.os }}
+    steps:
+      - name: Checkout elfy.zig
+        uses: actions/checkout@v3
+        with:
+          path: elfy.zig
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.2
+      - name: Verify Syntax
+        run: zig fmt --check src/
+        working-directory: elfy.zig
+      - name: Library Test
+        run: zig build test
+        working-directory: elfy.zig
