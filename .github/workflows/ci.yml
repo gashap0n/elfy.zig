@@ -19,7 +19,7 @@ jobs:
         with:
           version: 0.15.2
       - name: Verify Syntax
-        run: zig fmt --check src/
+        run: zig fmt --check --ast-check src/
         working-directory: elfy.zig
       - name: Library Test
         run: zig build test
